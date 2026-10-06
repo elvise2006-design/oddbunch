@@ -1,0 +1,235 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Seedling & Vine design tokens
+   Palette: soft green + seed brown + cream, with warm orange and deep plum
+   reserved for the Rare Collection.
+--------------------------------------------------------------------------- */
+@theme {
+  --font-display: 'Fredoka', 'Trebuchet MS', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Brand greens */
+  --color-leaf-50: #f2f9f1;
+  --color-leaf-100: #e0f2de;
+  --color-leaf-200: #c3e5c0;
+  --color-leaf-300: #96d091;
+  --color-leaf-400: #6fb96a;
+  --color-leaf-500: #4f9e4a;
+  --color-leaf-600: #3b7f38;
+  --color-leaf-700: #2f6330;
+  --color-leaf-800: #284f2b;
+  --color-leaf-900: #234226;
+
+  /* Seed browns */
+  --color-seed-50: #faf5ef;
+  --color-seed-100: #f2e8d9;
+  --color-seed-200: #e4d2b8;
+  --color-seed-300: #d2b491;
+  --color-seed-400: #b9916a;
+  --color-seed-500: #9c7350;
+  --color-seed-600: #7d5a3f;
+  --color-seed-700: #5f4431;
+  --color-seed-800: #4a3628;
+  --color-seed-900: #33251c;
+
+  /* Cream */
+  --color-cream-50: #fdfbf5;
+  --color-cream-100: #faf6ea;
+  --color-cream-200: #f4ecd6;
+  --color-cream-300: #eadcba;
+
+  /* Warm orange accent (Little Sprouts / Daily Fresh pops) */
+  --color-sunny-300: #ffd166;
+  --color-sunny-400: #ffb703;
+  --color-sunny-500: #f7941d;
+  --color-sunny-600: #dd7107;
+
+  /* Deep plum accent (Rare Collection only) */
+  --color-plum-700: #6b2157;
+  --color-plum-800: #4d1740;
+  --color-plum-900: #330f2a;
+  --color-plum-950: #1d0818;
+
+  /* Gold foil */
+  --color-gold-300: #f3d98b;
+  --color-gold-400: #e9c46a;
+  --color-gold-500: #d4a437;
+  --color-gold-600: #b8862a;
+
+  /* Soft botanical shadows */
+  --shadow-soft: 0 2px 8px -2px rgb(35 66 38 / 0.10), 0 8px 24px -8px rgb(35 66 38 / 0.14);
+  --shadow-lift: 0 6px 16px -4px rgb(35 66 38 / 0.16), 0 20px 44px -14px rgb(35 66 38 / 0.22);
+  --shadow-glow: 0 0 0 1px rgb(111 185 106 / 0.28), 0 12px 40px -10px rgb(111 185 106 / 0.45);
+
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.75rem;
+
+  --animate-wiggle: wiggle 3.2s ease-in-out infinite;
+  --animate-float-slow: float-slow 7s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.6s linear infinite;
+  --animate-drift: drift 18s linear infinite;
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+}
+
+/* Keyframes referenced by the --animate-* tokens above */
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-5deg) translateY(0);
+  }
+  50% {
+    transform: rotate(5deg) translateY(-4px);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(4deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(6vw, 112vh, 0) rotate(420deg);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Base layer
+--------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-cream-100 text-seed-900 font-sans antialiased;
+    /* Prevent horizontal scroll from decorative parallax layers. */
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    letter-spacing: -0.02em;
+  }
+
+  /* Visible, brand-coloured focus ring for keyboard users only. */
+  :focus-visible {
+    outline: 3px solid var(--color-leaf-500);
+    outline-offset: 3px;
+    border-radius: 0.6rem;
+  }
+
+  /* Ember-dark focus ring on the Rare Collection's dark background. */
+  [data-theme='dark'] :focus-visible {
+    outline-color: var(--color-gold-400);
+  }
+
+  ::selection {
+    background: var(--color-leaf-200);
+    color: var(--color-seed-900);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Utilities
+--------------------------------------------------------------------------- */
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+/* Rounded organic blob used behind hero + section artwork */
+@utility blob {
+  border-radius: 58% 42% 44% 56% / 46% 52% 48% 54%;
+}
+
+/* Holographic gold/plum sweep for Rare Collection hovers */
+@utility shimmer-text {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-plum-700) 0%,
+    var(--color-gold-300) 18%,
+    #ffffff 32%,
+    var(--color-gold-500) 46%,
+    var(--color-plum-800) 64%,
+    var(--color-gold-300) 82%,
+    var(--color-plum-700) 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+/* Fine diagonal foil lines overlay for the collector cards */
+@utility foil {
+  background-image: repeating-linear-gradient(
+    115deg,
+    rgb(255 255 255 / 0) 0px,
+    rgb(255 255 255 / 0) 12px,
+    rgb(255 255 255 / 0.09) 12px,
+    rgb(255 255 255 / 0.09) 24px
+  );
+}
+
+/* Hide scrollbar on the horizontal product rail */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Reduced-motion: kill every decorative loop, keep layout intact. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

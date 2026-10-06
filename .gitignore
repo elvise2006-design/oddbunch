@@ -1,0 +1,32 @@
+# --- Node / Vite ---
+node_modules/
+dist/
+*.tsbuildinfo
+.vite/
+
+# --- Python ---
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# --- Local data ---
+*.db
+*.db-shm
+*.db-wal
+
+# --- Env overrides (the committed .env files hold demo-only defaults) ---
+.env.local
+.env.*.local
+
+# --- Logs / OS junk ---
+*.log
+nohup.out
+.DS_Store
+Thumbs.db
+
+# --- Editors ---
+.vscode/
+.idea/
