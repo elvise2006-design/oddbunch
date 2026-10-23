@@ -5,7 +5,7 @@
  * can be pointed at any backend without touching component code.
  */
 
-const RAW_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:8000/api'
+const RAW_BASE = import.meta.env.VITE_API_BASE_URL ?? 'https://odd-test.onrender.com/api'
 
 /** Trailing slashes are stripped so joins never produce `//api`. */
 export const API_BASE_URL = RAW_BASE.replace(/\/+$/, '')
